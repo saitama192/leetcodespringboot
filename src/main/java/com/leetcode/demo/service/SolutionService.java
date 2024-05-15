@@ -18,4 +18,12 @@ public interface SolutionService {
      * @return A list of strings representing the summarized ranges.
      */
     public List<String> summaryRanges(int[] nums);
+
+    /**
+     * Checks if the input String has valid parenthesis here we are checking the parenthesis in correct
+     *
+     * @param string a String with allowed integers
+     * @return a boolean result
+    **/
+    public boolean isValidParenthesis(String string);
 }
