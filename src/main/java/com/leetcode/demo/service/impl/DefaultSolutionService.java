@@ -3,9 +3,7 @@ package com.leetcode.demo.service.impl;
 import com.leetcode.demo.service.SolutionService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class DefaultSolutionService implements SolutionService {
@@ -69,5 +67,35 @@ public class DefaultSolutionService implements SolutionService {
         }
 
         return result;
+    }
+
+    @Override
+    public boolean isValidParenthesis(String string) {
+        Set<Character> openingParantheses = new HashSet<>();
+        openingParantheses.add('(');
+        openingParantheses.add('{');
+        openingParantheses.add('[');
+        Stack<Character> paranthesis = new Stack<>();
+        for(char c: string.toCharArray()){
+            if(openingParantheses.contains(c)){
+                if(c == '(') {
+                    paranthesis.push(')');
+                }
+                else if(c == '{') {
+                    paranthesis.push('}');
+                }
+                else {
+                    paranthesis.push(']');
+                }
+                //if it is opening bracket push its reverse into the stack
+            }
+            else{
+                if(paranthesis.isEmpty() || !(paranthesis.pop() == c)) //if it is closing bracket check if the pop the stack and compare it
+                {
+                    return false;
+                }
+            }//if it matches move ahead
+        }
+        return paranthesis.isEmpty();
     }
 }
