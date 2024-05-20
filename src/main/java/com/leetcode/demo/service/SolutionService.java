@@ -26,4 +26,12 @@ public interface SolutionService {
      * @return a boolean result
     **/
     public boolean isValidParenthesis(String string);
+
+    /**
+     * Checks if the input number is palindrome or not
+     *
+     * @param number to be checked for palindrome property
+     * @return a boolean result
+     * **/
+    public boolean isPalindrome(int number);
 }

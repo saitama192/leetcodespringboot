@@ -62,6 +62,12 @@ public class RequestLeetCodeController {
         }
     }
 
+    @GetMapping("palindrome")
+    public ResponseEntity<String> checkPalindrome(@RequestParam("number") int number){
+        String result = solutionService.isPalindrome(number) ? "Yes" : "No";
+        return ResponseEntity.ok().body(result);
+    }
+
 
 
 }

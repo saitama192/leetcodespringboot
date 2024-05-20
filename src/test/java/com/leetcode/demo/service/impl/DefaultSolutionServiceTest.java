@@ -48,4 +48,20 @@ class DefaultSolutionServiceTest {
         Assert.isTrue(!result, "passed");
 
     }
+
+    @Test
+    @Description("This test checks for the palindrome with true scenario")
+    void isPalindromeTrue() {
+        int number = 123464321;
+        boolean result = solutionService.isPalindrome(number);
+        Assert.isTrue(result, "passed");
+    }
+
+    @Test
+    @Description("This test checks for the palindrome with true scenario")
+    void isPalindromeFalse() {
+        int number = 123464322;
+        boolean result = solutionService.isPalindrome(number);
+        Assert.isTrue(!result, "passed");
+    }
 }
