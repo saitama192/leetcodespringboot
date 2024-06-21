@@ -98,4 +98,17 @@ public class DefaultSolutionService implements SolutionService {
         }
         return paranthesis.isEmpty();
     }
+
+    @Override
+    public boolean isPalindrome(int number) {
+        //reverse the number
+        int num = number; //keep a copy of x in this variable which we will be modifying
+        int reverse = 0; //variable for storing reverse number
+        while (num > 0) {     //we will be reversing one number at a time
+            int temp = (int) num % 10; //extract the last number of the x
+            reverse = reverse * 10 + temp; //multiply existing value in the reverse by shifting it to left and append the number to the right
+            num = (int) num / 10; //reduce the length of temp num value by removing rightmost number
+        }
+        return reverse == number; //check if the reversed is matching with the first and return the boolean value
+    }
 }
