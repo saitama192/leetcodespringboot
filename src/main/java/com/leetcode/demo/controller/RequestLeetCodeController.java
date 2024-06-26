@@ -1,13 +1,13 @@
 package com.leetcode.demo.controller;
 
 import com.leetcode.demo.exception.InvalidInputException;
-import com.leetcode.demo.service.SolutionService;
 import com.leetcode.demo.service.impl.DefaultSolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -68,6 +68,33 @@ public class RequestLeetCodeController {
         return ResponseEntity.ok().body(result);
     }
 
+    @GetMapping("happynumber")
+    public ResponseEntity<String> checkHappyNumber(@RequestParam("number") int number){
+        String result = "Number "+number+ (solutionService.isHappy(number) ? " is " : " is not ")+"happy";
+        return ResponseEntity.ok().body(result);
+    }
 
+    @GetMapping("/jump")
+    public ResponseEntity<String> canJump(@RequestBody int[] numbers) {
+        String result = "Provided array "+Arrays.toString(numbers)+" can "+(solutionService.canJump(numbers) ? "jump " : "not jump");
+        // Process the list
+        return ResponseEntity.ok(result);
+    }
+
+    @GetMapping("/anagram")
+    public ResponseEntity<String> isAnagram(
+            @RequestParam String input1,
+            @RequestParam String input2) {
+        String result = solutionService.isAnagram(input1,input2) ? "valid anagrams" : "not valid anagrams";
+        return ResponseEntity.ok("Received: " + input1 + " and " + input2+" are "+result);
+    }
+
+    @GetMapping("/wordpattern")
+    public ResponseEntity<String> checkWordPattern(
+            @RequestParam String input1,
+            @RequestParam String input2) {
+        String result = (solutionService.wordPattern(input1,input2) ? "follow" : "does not follow")+" word pattern";
+        return ResponseEntity.ok("Received input: "+result);
+    }
 
 }

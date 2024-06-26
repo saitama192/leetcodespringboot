@@ -92,7 +92,7 @@ public class DefaultSolutionService implements SolutionService {
                 //if it is opening bracket push its reverse into the stack
             }
             else{
-                if(paranthesis.isEmpty() || !(paranthesis.pop() == c)) //if it is closing bracket check if the pop the stack and compare it
+                if(paranthesis.isEmpty() || (paranthesis.pop() != c)) //if it is closing bracket check if the pop the stack and compare it
                 {
                     return false;
                 }
@@ -107,11 +107,11 @@ public class DefaultSolutionService implements SolutionService {
         Map<String, String> data = template.data();
         StringBuilder result = new StringBuilder();
         int index = 0;
-        int startVariable, endVariable;
+        int startVariable;
+        int endVariable;
         boolean variableCheck = false;
         while(index < templateString.length()){
             if(templateString.charAt(index)=='$'){
-                variableCheck = true;
                 index++;
                 startVariable = index;
                 while(templateString.charAt(index)!='$'){
@@ -165,10 +165,97 @@ public class DefaultSolutionService implements SolutionService {
         int num = number; //keep a copy of x in this variable which we will be modifying
         int reverse = 0; //variable for storing reverse number
         while (num > 0) {     //we will be reversing one number at a time
-            int temp = (int) num % 10; //extract the last number of the x
+            int temp = num % 10; //extract the last number of the x
             reverse = reverse * 10 + temp; //multiply existing value in the reverse by shifting it to left and append the number to the right
-            num = (int) num / 10; //reduce the length of temp num value by removing rightmost number
+            num = num / 10; //reduce the length of temp num value by removing rightmost number
         }
         return reverse == number; //check if the reversed is matching with the first and return the boolean value
+    }
+
+    @Override
+    public boolean isHappy(int n) {
+        int sum = makeSum(n);
+        while (sum != 1 && sum != 4) {
+            sum = makeSum(sum);
+        }
+        return sum == 1;
+    }
+
+    private int makeSum(int n) {
+        int sum = 0;
+        while (n > 0) {
+            sum += Math.pow(n % 10, 2);
+            n = n / 10;
+        }
+        return sum;
+    }
+
+    @Override
+    public boolean wordPattern(String pattern, String s) {
+        String[] words = s.split(" ");
+        if(words.length != pattern.length()){
+            return false;
+        }
+        Map<Character,String> charMap = new HashMap<>();
+        Map<String,Character> wordMap = new HashMap<>();
+        for(int i =0; i < pattern.length(); i++){
+            char c = pattern.charAt(i);
+            String word = words[i];
+            if (charMap.containsKey(c)) {
+                String val = charMap.get(c);
+                if (!val.equals(word)) {
+                    return false;
+                }
+            } else {
+                if (wordMap.containsKey(word) && wordMap.get(word) != c) {
+                    return false;
+                }
+                charMap.put(c, word);
+                wordMap.put(word, c);
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean canJump(int[] nums) {
+        int position = 0;
+        for (int i = 0; i < nums.length; i++) {
+            if (i > position) return false;
+            position = Math.max(position, i + nums[i]);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean isAnagram(String s, String t) {
+        if (s.length() != t.length()) {
+            return false;
+        }
+        Map<Character, Integer> characterMap = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char c = s.charAt(i);
+            if (characterMap.containsKey(c)) {
+                int count = characterMap.get(c);
+                characterMap.put(c, count + 1);
+            } else {
+                characterMap.put(c, 1);
+            }
+        }
+
+        for (int i = 0; i < t.length(); i++) {
+            char c = t.charAt(i);
+            if (characterMap.containsKey(c)) {
+                int count = characterMap.get(c);
+                if (count > 1) {
+                    characterMap.put(c, count - 1);
+                } else {
+                    characterMap.remove(c);
+                }
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }
