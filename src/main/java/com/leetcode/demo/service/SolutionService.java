@@ -1,5 +1,7 @@
 package com.leetcode.demo.service;
 
+import com.leetcode.demo.model.GoogleTemplateData;
+
 import java.util.List;
 
 public interface SolutionService {
@@ -34,4 +36,12 @@ public interface SolutionService {
      * @return a boolean result
      * **/
     public boolean isPalindrome(int number);
+
+    /**
+     * Receives template Data with Template and Data and for the email and fills it
+     *
+     * @param template contains template and data
+     * @return a string with filled email
+     * **/
+    public String fillTemplate(GoogleTemplateData template);
 }

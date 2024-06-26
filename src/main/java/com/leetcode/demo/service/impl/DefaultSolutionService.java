@@ -1,5 +1,7 @@
 package com.leetcode.demo.service.impl;
 
+import com.leetcode.demo.exception.InvalidInputException;
+import com.leetcode.demo.model.GoogleTemplateData;
 import com.leetcode.demo.service.SolutionService;
 import org.springframework.stereotype.Service;
 
@@ -98,6 +100,64 @@ public class DefaultSolutionService implements SolutionService {
         }
         return paranthesis.isEmpty();
     }
+
+    @Override
+    public String fillTemplate(GoogleTemplateData template) {
+        String templateString = template.template();
+        Map<String, String> data = template.data();
+        StringBuilder result = new StringBuilder();
+        int index = 0;
+        int startVariable, endVariable;
+        boolean variableCheck = false;
+        while(index < templateString.length()){
+            if(templateString.charAt(index)=='$'){
+                variableCheck = true;
+                index++;
+                startVariable = index;
+                while(templateString.charAt(index)!='$'){
+                    index++;
+                }
+                variableCheck = false;
+                endVariable = index; //error
+                String variable = templateString.substring(startVariable, endVariable);
+                String value = getSimplifiedVariable(variable, data, null);
+                if(data.containsKey(variable)){
+                    result.append(value);  //error
+                }
+                else{
+                    throw new InvalidInputException(String.format("Variable %s not found in the data", variable));
+                }
+            }
+            else{
+                result.append(templateString.charAt(index));
+            }
+            index++;
+        }
+        if(!variableCheck){
+            return result.toString();
+        }
+        else throw new InvalidInputException("");
+    }
+
+    private String getSimplifiedVariable(String variable,Map<String, String> data, Set<String> checkedKeys) {
+        //if the value contains a $ we need to check the data again
+        if(checkedKeys == null){
+            checkedKeys = new HashSet<>();
+        }
+        if(checkedKeys.contains(variable)){
+            //we have already checked for this variable
+            throw new InvalidInputException("Variable "+ variable+"value does not exist");
+        }
+        else{
+        checkedKeys.add(variable);
+        }
+        String value = data.get(variable);
+        if(value.charAt(0) == '$'){
+            value = getSimplifiedVariable(variable, data, checkedKeys);
+        }
+        return value;
+    }
+
 
     @Override
     public boolean isPalindrome(int number) {
