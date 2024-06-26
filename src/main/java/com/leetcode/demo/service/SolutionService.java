@@ -44,4 +44,33 @@ public interface SolutionService {
      * @return a string with filled email
      * **/
     public String fillTemplate(GoogleTemplateData template);
+
+    /**
+     * Receives int and tells whether it is a happy integer or not
+     * @param int n is a number to be checked
+     * @return boolean result
+     * */
+    public boolean isHappy(int n);
+
+    /**
+     * Checks if the string is following a pattern specified
+     * @param pattern is a string whose pattern we are checking against the String s
+     * @return boolean result
+     * */
+    public boolean wordPattern(String pattern, String s);
+    /**
+     * Receives int[] array and based on the position of each value and tells
+     * whether it is able to jump to last location or not
+     * @param int[] nums is an array to be checked
+     * @return boolean result
+     * */
+    public boolean canJump(int[] nums);
+    /**
+     * Checks if the given two strings are anagram or not
+     * a word is considered to be an anagram of another word if the word can be constructed by using the
+     * all letters of the target word, with same occurances of the letters available in target word
+     * @param s is a string which wr are checking against the String t
+     * @return boolean result
+     * */
+    public boolean isAnagram(String s, String t);
 }
