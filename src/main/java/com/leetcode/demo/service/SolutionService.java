@@ -58,6 +58,7 @@ public interface SolutionService {
      * @return boolean result
      * */
     public boolean wordPattern(String pattern, String s);
+
     /**
      * Receives int[] array and based on the position of each value and tells
      * whether it is able to jump to last location or not
@@ -73,4 +74,15 @@ public interface SolutionService {
      * @return boolean result
      * */
     public boolean isAnagram(String s, String t);
+    /**
+     * Groups an array of strings into lists of anagrams.
+     *
+     * <p>This method takes an array of strings and groups them into lists where each list contains
+     * strings that are anagrams of each other. An anagram is a word or phrase formed by rearranging
+     * the letters of a different word or phrase, typically using all the original letters exactly once.
+     *
+     * @param strs an array of strings to be grouped into anagrams
+     * @return a list of lists, where each inner list contains strings that are anagrams of each other
+     */
+    public List<List<String>> groupAnagrams(String[] strs);
 }
