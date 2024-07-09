@@ -6,6 +6,7 @@ import com.leetcode.demo.service.SolutionService;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class DefaultSolutionService implements SolutionService {
@@ -257,5 +258,28 @@ public class DefaultSolutionService implements SolutionService {
             }
         }
         return true;
+    }
+
+    @Override
+    public List<List<String>> groupAnagrams(String[] strs) {
+        Map<String,List<String>> anagramMap = new HashMap<>();
+        for(int i = 0; i < strs.length; i++){
+            String current = strs[i];
+            //making a key out of the string
+            String currentKey = current.chars()
+                    .sorted()
+                    .mapToObj(c -> String.valueOf((char) c))
+                    .collect(Collectors.joining());
+            if(anagramMap.containsKey(currentKey)){
+                List<String> values =  anagramMap.get(currentKey);
+                values.add(current);
+            }
+            else{
+                List<String> values = new ArrayList<>();
+                values.add(current);
+                anagramMap.put(currentKey, values);
+            }
+        }
+        return new ArrayList<>(anagramMap.values());
     }
 }

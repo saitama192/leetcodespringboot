@@ -3,6 +3,7 @@ package com.leetcode.demo.controller;
 import com.leetcode.demo.exception.InvalidInputException;
 import com.leetcode.demo.service.impl.DefaultSolutionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,9 @@ public class RequestLeetCodeController {
 
     @Autowired
     DefaultSolutionService solutionService;
+
+    @Value("${userrrr.name}")
+    String user;
 
     @GetMapping("hello")
     public ResponseEntity<String> getHello(){
@@ -95,6 +99,16 @@ public class RequestLeetCodeController {
             @RequestParam String input2) {
         String result = (solutionService.wordPattern(input1,input2) ? "follow" : "does not follow")+" word pattern";
         return ResponseEntity.ok("Received input: "+result);
+    }
+
+    @GetMapping("/user")
+    public ResponseEntity<String> getUser(){
+        return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/groupAnagrams")
+    public ResponseEntity<List<List<String>>> getGroupAnagrams(@RequestBody String[] strings){
+        return ResponseEntity.ok(solutionService.groupAnagrams(strings));
     }
 
 }
