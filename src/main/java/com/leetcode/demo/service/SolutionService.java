@@ -85,4 +85,20 @@ public interface SolutionService {
      * @return a list of lists, where each inner list contains strings that are anagrams of each other
      */
     public List<List<String>> groupAnagrams(String[] strs);
+
+    /**
+     * Masks an input string only leaving last 4 characters as it is
+     *
+     *if the string length is less than 4, then the string is not masked
+     * @param input a string to be masked
+     * @return a String which is masked
+     */
+    public String maskString(String input);
+
+
+    /**
+     * @param input gives supposed perfect square number
+     * @return if the input is valid square number we provide the next perfect square root
+     */
+    public long getNextSquareRoot(long input);
 }

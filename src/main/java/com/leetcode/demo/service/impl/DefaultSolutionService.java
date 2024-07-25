@@ -282,4 +282,19 @@ public class DefaultSolutionService implements SolutionService {
         }
         return new ArrayList<>(anagramMap.values());
     }
+
+    @Override
+    public String maskString(String input) {
+        if(input.length()<= 4){
+            return input;
+        }
+        int length = input.length();
+        return "#".repeat(length - 4) + input.substring(length - 4);
+    }
+
+    @Override
+    public long getNextSquareRoot(long input) {
+        long root = (long) Math.sqrt(input);
+        return root * root == input ? (root + 1) * (root + 1) : -1;
+    }
 }
