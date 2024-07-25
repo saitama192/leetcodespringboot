@@ -111,4 +111,14 @@ public class RequestLeetCodeController {
         return ResponseEntity.ok(solutionService.groupAnagrams(strings));
     }
 
+    @GetMapping("/maskeddetails")
+    public ResponseEntity<String> getMaskedString(@RequestParam("input") String input){
+        return ResponseEntity.ok(solutionService.maskString(input));
+    }
+
+    @GetMapping("/nextPerfectSquare")
+    public ResponseEntity<Long> getNextPerfectSquare(@RequestParam("input") long input){
+        return ResponseEntity.ok(solutionService.getNextSquareRoot(input));
+    }
+
 }
