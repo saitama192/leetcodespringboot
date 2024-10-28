@@ -297,4 +297,36 @@ public class DefaultSolutionService implements SolutionService {
         long root = (long) Math.sqrt(input);
         return root * root == input ? (root + 1) * (root + 1) : -1;
     }
+
+    @Override
+    public String getSortedNumberString(String words) {
+        if(words.trim().isEmpty()){
+            return ""; //taking care of the empty string
+        }
+        String[] wordsList = words.split(" "); //split the string into the words
+        Map<Integer, String> wordMap = new HashMap<>();//store each word into its specific key number
+        //first store the each word into the hashmap
+        for(String word: wordsList){
+            int number = Integer.MAX_VALUE;
+            for(int i = 0; i < word.length(); i++){
+                if(Character.isDigit(word.charAt(i))){
+                    number = Character.getNumericValue(word.charAt(i));
+                    break;
+                }
+            }
+            if(number != Integer.MAX_VALUE){
+                wordMap.put(number, word);
+            }
+        }
+        //then make a string out of it
+        StringBuilder result = new StringBuilder();
+        for(int i = 1; i < 10; i++){
+            String word = wordMap.get(i);
+            if(word != null){
+                result.append(word);
+                result.append(" ");
+            }
+        }
+        return result.toString().trim();
+    }
 }

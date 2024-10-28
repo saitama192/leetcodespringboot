@@ -121,4 +121,9 @@ public class RequestLeetCodeController {
         return ResponseEntity.ok(solutionService.getNextSquareRoot(input));
     }
 
+    @GetMapping("/sortedNumberString")
+    public ResponseEntity<String> getSortedNumberString(@RequestParam("input") String words){
+        return ResponseEntity.ok(solutionService.getSortedNumberString(words));
+    }
+
 }
