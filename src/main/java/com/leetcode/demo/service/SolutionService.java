@@ -101,4 +101,10 @@ public interface SolutionService {
      * @return if the input is valid square number we provide the next perfect square root
      */
     public long getNextSquareRoot(long input);
+
+    /**
+     * @param words gives input String containing words in which each word has one digit from 1-9
+     * @return return String with sorted input from 1-9 in order of the digits
+     */
+    public String getSortedNumberString(String words);
 }
